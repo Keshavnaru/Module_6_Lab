@@ -21,12 +21,14 @@
     75% { top: -110px; }
     100% { top: -100px; }
   }
+  /* Navigation bar styles */
   
   #footer-banner {
     bottom: -100px;
     animation: shakeBottom 1s ease-in-out infinite;
   }
   
+  /* Modal styles */
   @keyframes shakeBottom {
     0% { bottom: -100px; }
     25% { bottom: -90px; }
@@ -35,6 +37,7 @@
     100% { bottom: -100px; }
   }
   
+  /* Button styles */
   #modal {
     position: fixed;
     z-index: 10000;
