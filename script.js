@@ -1,62 +1,80 @@
-/**
- * Displays the top banner by removing the 'hide' class from it.
- * Uses a short delay to ensure the transition is triggered.
- */
-function showTopBanner() {
-	var banner = document.getElementById("top-banner");
-	banner.classList.remove("hide");
-	setTimeout(function () {
-		banner.classList.add("show");
-	}, 50); // Delay to ensure the transition is triggered
+let clickAttempts = 0;
+let canClickButton = false;
+let moveCount = 0; // Track number of movements
+
+function moveButton() {
+  const button = document.getElementById("clear-data-btn");
+
+  if (moveCount >= 3) {
+    return; // Stop moving after three times
+  }
+
+  // Change position three times on hover
+  const randomX = Math.random() * (window.innerWidth - button.offsetWidth);
+  const randomY = Math.random() * (window.innerHeight - button.offsetHeight);
+
+  button.style.left = randomX + "px";
+  button.style.top = randomY + "px";
+
+  moveCount++; // Increment movement count
 }
 
-/**
- * Displays the footer banner by removing the 'hide' class from it.
- */
-function showFooterBanner() {
-	document.getElementById("footer-banner").classList.remove("hide");
+// Make the button clickable on the 5th attempt
+function handleButtonClick() {
+  clickAttempts++;
+
+  if (clickAttempts < 5) {
+    alert("Try again! You're not quite there yet!");
+  } else {
+    // After the 5th click, show the annoying question
+    askAnnoyingQuestion();
+  }
 }
 
-/**
- * Displays the modal by removing the 'hide' class from it.
- */
-function showModal() {
-	document.getElementById("modal").classList.remove("hide");
+// Ask an annoying question after the 5th click
+function askAnnoyingQuestion() {
+  const annoyingQuestions = [
+    "Do you like this website?",
+    "Why did you click the button?",
+    "Are you sure you want to clear all your data?",
+    "Why do you want to annoy yourself?",
+    "Did you expect a reward for clicking this button?"
+  ];
+
+  const randomIndex = Math.floor(Math.random() * annoyingQuestions.length);
+  const question = annoyingQuestions[randomIndex];
+
+  setTimeout(() => {
+    const answer = prompt(question);
+
+    // After answering, allow the button to be clickable again
+    if (answer !== null) {
+      alert("Great! You can now clear your data.");
+      canClickButton = true;
+      clickAttempts = 0;
+    } else {
+      alert("You didn't answer, but okay, let's continue...");
+    }
+  }, 500); // Delay annoying question for added suspense
 }
 
-/**
- * Hides the modal by adding the 'hide' class to it.
- */
-function closeModal() {
-	document.getElementById("modal").classList.add("hide");
+// Reset button click attempts when data is cleared
+function resetButton() {
+  clickAttempts = 0;
+  alert("Data cleared!");
+  localStorage.clear();
+  sessionStorage.clear();
+  document.cookie = "footerBannerClosed=; path=/; max-age=0"; // Clear cookies
 }
 
-/**
- * Hides the top banner by adding the 'hide' class to it.
- */
-function closeTopBanner() {
-	document.getElementById("top-banner").classList.add("hide");
-}
+// Add event listener for the button hover
+document.getElementById("clear-data-btn").addEventListener("mouseover", moveButton);
 
-/**
- * Hides the footer banner by adding the 'hide' class to it.
- */
-function closeFooterBanner() {
-	document.getElementById("footer-banner").classList.add("hide");
-}
-
-// Event listeners to close the modal, top banner, and footer banner when 'x' is clicked
-document.getElementById("modal").addEventListener("click", closeModal);
-document.getElementById("top-banner").addEventListener("click", closeTopBanner);
-document
-	.getElementById("footer-banner")
-	.addEventListener("click", closeFooterBanner);
-
-// Show the footer banner after a delay of 1 second
-setTimeout(showFooterBanner, 1000);
-
-// Show the top banner after a delay of 2 seconds
-setTimeout(showTopBanner, 2000);
-
-// Show the modal after a delay of 4 seconds
-setTimeout(showModal, 4000);
+// Add event listener for the button click
+document.getElementById("clear-data-btn").addEventListener("click", function () {
+  if (clickAttempts >= 5) {
+    resetButton();
+  } else {
+    handleButtonClick();
+  }
+});

@@ -1,59 +1,99 @@
+/* General banner styles */
 .banner {
-	position: fixed;
-	width: 100%;
-	background-color: #f9ed69;
-	padding: 10px 0;
-	text-align: center;
-	z-index: 1000;
-}
-
-#top-banner {
-	top: -50px;
-	transition: top 2s;
-}
-
-#top-banner.show {
-	top: 0;
-}
-
-#footer-banner {
-	bottom: 0;
-}
-
-#modal {
-	position: fixed;
-	z-index: 10000;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-}
-
-.close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-	padding-right: 20px;
-}
-
-.close:hover,
-.close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.hide {
-	display: none;
-}
+    position: fixed;
+    width: 100%;
+    background-color: #f9ed69;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 1000;
+    transition: all 0.5s ease;
+  }
+  
+  #top-banner {
+    top: -100px;
+    animation: shakeTop 1s ease-in-out infinite;
+  }
+  
+  @keyframes shakeTop {
+    0% { top: -100px; }
+    25% { top: -90px; }
+    50% { top: -100px; }
+    75% { top: -110px; }
+    100% { top: -100px; }
+  }
+  
+  #footer-banner {
+    bottom: -100px;
+    animation: shakeBottom 1s ease-in-out infinite;
+  }
+  
+  @keyframes shakeBottom {
+    0% { bottom: -100px; }
+    25% { bottom: -90px; }
+    50% { bottom: -100px; }
+    75% { bottom: -110px; }
+    100% { bottom: -100px; }
+  }
+  
+  #modal {
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+  }
+  
+  #modal.show {
+    display: block;
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    transition: all 0.3s ease;
+  }
+  
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    padding-right: 20px;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .hide {
+    display: none;
+  }
+  
+  #clear-data-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff6347;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+  }
+  
+  /* Style for moving the button */
+  #clear-data-btn.moving {
+    transition: none;
+  }
+  
